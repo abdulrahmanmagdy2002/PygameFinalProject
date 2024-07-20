@@ -6,7 +6,7 @@ import sys
 pygame.init()
 
 # Constants
-SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
+SCREEN_WIDTH, SCREEN_HEIGHT = 1024, 768
 PLAYER_SIZE = 64
 ENEMY_SIZE = 64
 BULLET_SIZE = 32
@@ -70,7 +70,7 @@ class EnemyBullet:
 # Spawn enemy function
 def spawn_enemy():
     x_pos = random.randint(0, SCREEN_WIDTH - ENEMY_SIZE)
-    enemy = Enemy(x_pos, -ENEMY_SIZE)
+    enemy = Enemy(x_pos, -2 * ENEMY_SIZE)
     enemies.append(enemy)
 
 # Shoot enemy bullet function
