@@ -20,7 +20,7 @@ SPAWN_ENEMY_EVENT = pygame.USEREVENT + 1
 SHOOT_ENEMY_BULLET_EVENT = pygame.USEREVENT + 2
 
 # Load images
-background = pygame.image.load("spacebackground.jpg")
+background = pygame.image.load("spacebackground2.jpg")
 player_img = pygame.image.load("player.png")
 enemy_img = pygame.image.load("enemy.png")
 bullet_img = pygame.image.load("bullet.png")
@@ -105,6 +105,19 @@ def game_over_screen():
                     pygame.quit()
                     sys.exit()
 
+# Display Level Up message
+def level_up_message(level):
+    popup_width, popup_height = 300, 150
+    popup_x = (SCREEN_WIDTH - popup_width) // 2
+    popup_y = (SCREEN_HEIGHT - popup_height) // 2
+
+    font = pygame.font.Font(None, 54)
+    level_up_text = font.render(f"Level {level}", True, BLACK)
+    pygame.draw.rect(screen, WHITE, (popup_x, popup_y, popup_width, popup_height))
+    screen.blit(level_up_text, (popup_x + (popup_width - level_up_text.get_width()) // 2, popup_y + (popup_height - level_up_text.get_height()) // 2))
+    pygame.display.flip()
+    pygame.time.delay(2000)  # Display the pop-up for 2 seconds
+
 # Game loop
 def main_game():
     global bullets, enemies, enemy_bullets, player_rect, score, level
@@ -184,20 +197,28 @@ def main_game():
         # Increase difficulty for level 2
         if score >= 20 and level == 1:
             level = 2
+            level_up_message(level)
             pygame.time.set_timer(SPAWN_ENEMY_EVENT, 500)  # Increase spawn rate
-
 
         if score >= 80 and level == 2:
             level = 3
-            pygame.time.set_timer(SPAWN_ENEMY_EVENT, 400)  # Increase spawn rate
+            level_up_message(level)
+            pygame.time.set_timer(SPAWN_ENEMY_EVENT, 375)  # Increase spawn rate
 
         if score >= 150 and level == 3:
             level = 4
+            level_up_message(level)
             pygame.time.set_timer(SPAWN_ENEMY_EVENT, 250)  # Increase spawn rate
 
         if score >= 250 and level == 4:
             level = 5
-            pygame.time.set_timer(SPAWN_ENEMY_EVENT, 100)  # Increase spawn rate
+            level_up_message(level)
+            pygame.time.set_timer(SPAWN_ENEMY_EVENT, 125)  # Increase spawn rate
+
+        if score >= 400 and level == 5:
+            level = 6
+            level_up_message(level)
+            pygame.time.set_timer(SPAWN_ENEMY_EVENT, 75)  # Increase spawn rate
 
         # Drawing
         screen.blit(background, (0, 0))
@@ -210,8 +231,8 @@ def main_game():
             screen.blit(enemy_bullet_img, enemy_bullet.rect.topleft)
 
         # Display score and level
-        score_text = font.render(f"Score: {score}", True, BLACK)
-        level_text = font.render(f"Level: {level}", True, BLACK)
+        score_text = font.render(f"Score: {score}", True, WHITE)
+        level_text = font.render(f"Level: {level}", True, WHITE)
         screen.blit(score_text, (10, 10))
         screen.blit(level_text, (10, 50))
 
