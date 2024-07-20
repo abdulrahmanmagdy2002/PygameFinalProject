@@ -20,11 +20,11 @@ SPAWN_ENEMY_EVENT = pygame.USEREVENT + 1
 SHOOT_ENEMY_BULLET_EVENT = pygame.USEREVENT + 2
 
 # Load images
-background = pygame.image.load("D:/All AUC subjects/10. Summer 2024/Project/spacebackground.jpg")
-player_img = pygame.image.load("D:/All AUC subjects/10. Summer 2024/Project/player.png")
-enemy_img = pygame.image.load("D:/All AUC subjects/10. Summer 2024/Project/enemy.png")
-bullet_img = pygame.image.load("D:/All AUC subjects/10. Summer 2024/Project/bullet.png")
-enemy_bullet_img = pygame.image.load("D:/All AUC subjects/10. Summer 2024/Project/enemy_bullet.png")
+background = pygame.image.load("spacebackground.jpg")
+player_img = pygame.image.load("player.png")
+enemy_img = pygame.image.load("enemy.png")
+bullet_img = pygame.image.load("bullet.png")
+enemy_bullet_img = pygame.image.load("enemy_bullet.png")
 ENEMY_BULLET_SIZE = 52  #
 # Scale images to the appropriate size
 player_img = pygame.transform.scale(player_img, (PLAYER_SIZE, PLAYER_SIZE))
@@ -195,8 +195,8 @@ def main_game():
             screen.blit(enemy_bullet_img, enemy_bullet.rect.topleft)
 
         # Display score and level
-        score_text = font.render(f"Score: {score}", True, WHITE)
-        level_text = font.render(f"Level: {level}", True, WHITE)
+        score_text = font.render(f"Score: {score}", True, BLACK)
+        level_text = font.render(f"Level: {level}", True, BLACK)
         screen.blit(score_text, (10, 10))
         screen.blit(level_text, (10, 50))
 
