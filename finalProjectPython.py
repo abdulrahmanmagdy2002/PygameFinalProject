@@ -12,10 +12,10 @@ ENEMY_SIZE = 64
 BULLET_SIZE = 32
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-PLAYER_SPEED = 8
-BULLET_SPEED = 12
-ENEMY_SPEED = 5
-ENEMY_BULLET_SPEED = 7
+PLAYER_SPEED = 7
+BULLET_SPEED = 10
+ENEMY_SPEED = 4
+ENEMY_BULLET_SPEED = 6
 SPAWN_ENEMY_EVENT = pygame.USEREVENT + 1
 SHOOT_ENEMY_BULLET_EVENT = pygame.USEREVENT + 2
 
@@ -25,8 +25,10 @@ player_img = pygame.image.load("player.png")
 enemy_img = pygame.image.load("enemy.png")
 bullet_img = pygame.image.load("bullet.png")
 enemy_bullet_img = pygame.image.load("enemy_bullet.png")
-ENEMY_BULLET_SIZE = 52  #
+ENEMY_BULLET_SIZE = 52
+
 # Scale images to the appropriate size
+background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 player_img = pygame.transform.scale(player_img, (PLAYER_SIZE, PLAYER_SIZE))
 enemy_img = pygame.transform.scale(enemy_img, (ENEMY_SIZE, ENEMY_SIZE))
 bullet_img = pygame.transform.scale(bullet_img, (BULLET_SIZE, BULLET_SIZE))
@@ -180,9 +182,22 @@ def main_game():
                 enemies.remove(enemy)
 
         # Increase difficulty for level 2
-        if score >= 10 and level == 1:
+        if score >= 20 and level == 1:
             level = 2
             pygame.time.set_timer(SPAWN_ENEMY_EVENT, 500)  # Increase spawn rate
+
+
+        if score >= 80 and level == 2:
+            level = 3
+            pygame.time.set_timer(SPAWN_ENEMY_EVENT, 400)  # Increase spawn rate
+
+        if score >= 150 and level == 3:
+            level = 4
+            pygame.time.set_timer(SPAWN_ENEMY_EVENT, 250)  # Increase spawn rate
+
+        if score >= 250 and level == 4:
+            level = 5
+            pygame.time.set_timer(SPAWN_ENEMY_EVENT, 100)  # Increase spawn rate
 
         # Drawing
         screen.blit(background, (0, 0))
