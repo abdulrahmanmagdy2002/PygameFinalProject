@@ -333,10 +333,6 @@ def main_multiplayer():
             player2_rect.move_ip(-PLAYER_SPEED, 0)
         if keys[pygame.K_d] and player2_rect.right < SCREEN_WIDTH:
             player2_rect.move_ip(PLAYER_SPEED, 0)
-        if keys[pygame.K_w] and player2_rect.top > 0:
-            player2_rect.move_ip(0, -PLAYER_SPEED)
-        if keys[pygame.K_s] and player2_rect.bottom < SCREEN_HEIGHT:
-            player2_rect.move_ip(0, PLAYER_SPEED)
         if keys[pygame.K_LSHIFT]:
             bullet2_rect = bullet_img.get_rect(midbottom=player2_rect.midtop)
             bullets2.append(bullet2_rect)
