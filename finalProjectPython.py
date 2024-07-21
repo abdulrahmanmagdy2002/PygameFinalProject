@@ -12,6 +12,8 @@ ENEMY_SIZE = 64
 BULLET_SIZE = 32
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
+LIGHT_GRAY = (170, 170, 170)
+DARK_GRAY = (100, 100, 100)
 PLAYER_SPEED = 7
 BULLET_SPEED = 10
 ENEMY_SPEED = 4
@@ -120,15 +122,26 @@ def level_up_message(level):
     pygame.display.flip()
     pygame.time.delay(2000)  # Display the pop-up for 2 seconds
 
-# Show home screen
+
+#function to draw buttons to be used inside the home screen functions
+def draw_button(screen, text, rect, color):
+    pygame.draw.rect(screen, color, rect)
+    text_surface = font.render(text, True, WHITE)
+    text_rect = text_surface.get_rect(center=rect.center)
+    screen.blit(text_surface, text_rect)
+
+# function to display home screen for user
 def show_home_screen():
     screen.fill(BLACK)
     title_text = font.render("Top-Down Shooter", True, WHITE)
-    single_player_text = font.render("Press '1' for Single Player", True, WHITE)
-    multiplayer_text = font.render("Press '2' for Multiplayer", True, WHITE)
-    screen.blit(title_text, (SCREEN_WIDTH // 2 - title_text.get_width() // 2, SCREEN_HEIGHT // 2 - 100))
-    screen.blit(single_player_text, (SCREEN_WIDTH // 2 - single_player_text.get_width() // 2, SCREEN_HEIGHT // 2))
-    screen.blit(multiplayer_text, (SCREEN_WIDTH // 2 - multiplayer_text.get_width() // 2, SCREEN_HEIGHT // 2 + 50)) 
+    screen.blit(title_text, (SCREEN_WIDTH // 2 - title_text.get_width() // 2, SCREEN_HEIGHT // 2 - 150))
+
+    # Button dimensions and positions
+    button_width = 300
+    button_height = 70
+    single_player_rect = pygame.Rect((SCREEN_WIDTH // 2 - button_width // 2, SCREEN_HEIGHT // 2), (button_width, button_height))
+    multiplayer_rect = pygame.Rect((SCREEN_WIDTH // 2 - button_width // 2, SCREEN_HEIGHT // 2 + 100), (button_width, button_height))
+
     pygame.display.flip()
 
     waiting = True
@@ -137,11 +150,18 @@ def show_home_screen():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_1:
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if single_player_rect.collidepoint(event.pos):
                     return "single"
-                elif event.key == pygame.K_2:
+                elif multiplayer_rect.collidepoint(event.pos):
                     return "multi"
+
+        # Draw buttons
+        draw_button(screen, "Single Player", single_player_rect, DARK_GRAY if single_player_rect.collidepoint(pygame.mouse.get_pos()) else LIGHT_GRAY)
+        draw_button(screen, "Multiplayer", multiplayer_rect, DARK_GRAY if multiplayer_rect.collidepoint(pygame.mouse.get_pos()) else LIGHT_GRAY)
+
+        pygame.display.flip()
+
 
 # Game loop
 def main_game():
@@ -383,27 +403,27 @@ def main_multiplayer():
         if score >= 20 and level == 1:
             level = 2
             level_up_message(level)
-            pygame.time.set_timer(SPAWN_ENEMY_EVENT, 500)  # Increase spawn rate
+            pygame.time.set_timer(SPAWN_ENEMY_EVENT, 400)  # Increase spawn rate
 
         if score >= 80 and level == 2:
             level = 3
             level_up_message(level)
-            pygame.time.set_timer(SPAWN_ENEMY_EVENT, 375)  # Increase spawn rate
+            pygame.time.set_timer(SPAWN_ENEMY_EVENT, 300)  # Increase spawn rate
 
         if score >= 150 and level == 3:
             level = 4
             level_up_message(level)
-            pygame.time.set_timer(SPAWN_ENEMY_EVENT, 250)  # Increase spawn rate
+            pygame.time.set_timer(SPAWN_ENEMY_EVENT, 150)  # Increase spawn rate
 
         if score >= 250 and level == 4:
             level = 5
             level_up_message(level)
-            pygame.time.set_timer(SPAWN_ENEMY_EVENT, 125)  # Increase spawn rate
+            pygame.time.set_timer(SPAWN_ENEMY_EVENT, 100)  # Increase spawn rate
 
         if score >= 400 and level == 5:
             level = 6
             level_up_message(level)
-            pygame.time.set_timer(SPAWN_ENEMY_EVENT, 75)  # Increase spawn rate
+            pygame.time.set_timer(SPAWN_ENEMY_EVENT, 40)  # Increase spawn rate
 
         # Drawing
         screen.blit(background, (0, 0))
