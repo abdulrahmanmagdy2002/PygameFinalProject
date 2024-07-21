@@ -22,6 +22,7 @@ SHOOT_ENEMY_BULLET_EVENT = pygame.USEREVENT + 2
 # Load images
 background = pygame.image.load("spacebackground2.jpg")
 player_img = pygame.image.load("player.png")
+player2_img = pygame.image.load("player2.png")
 enemy_img = pygame.image.load("enemy.png")
 bullet_img = pygame.image.load("bullet.png")
 enemy_bullet_img = pygame.image.load("enemy_bullet.png")
@@ -30,6 +31,7 @@ ENEMY_BULLET_SIZE = 52
 # Scale images to the appropriate size
 background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 player_img = pygame.transform.scale(player_img, (PLAYER_SIZE, PLAYER_SIZE))
+player2_img = pygame.transform.scale(player2_img, (PLAYER_SIZE, PLAYER_SIZE))
 enemy_img = pygame.transform.scale(enemy_img, (ENEMY_SIZE, ENEMY_SIZE))
 bullet_img = pygame.transform.scale(bullet_img, (BULLET_SIZE, BULLET_SIZE))
 enemy_bullet_img = pygame.transform.scale(enemy_bullet_img, (ENEMY_BULLET_SIZE, ENEMY_BULLET_SIZE))
@@ -126,7 +128,7 @@ def show_home_screen():
     multiplayer_text = font.render("Press '2' for Multiplayer", True, WHITE)
     screen.blit(title_text, (SCREEN_WIDTH // 2 - title_text.get_width() // 2, SCREEN_HEIGHT // 2 - 100))
     screen.blit(single_player_text, (SCREEN_WIDTH // 2 - single_player_text.get_width() // 2, SCREEN_HEIGHT // 2))
-    screen.blit(multiplayer_text, (SCREEN_WIDTH // 2 - multiplayer_text.get_width() // 2, SCREEN_HEIGHT // 2 + 50))
+    screen.blit(multiplayer_text, (SCREEN_WIDTH // 2 - multiplayer_text.get_width() // 2, SCREEN_HEIGHT // 2 + 50)) 
     pygame.display.flip()
 
     waiting = True
@@ -268,8 +270,8 @@ def main_game():
 
 def main_multiplayer():
     global bullets, enemies, enemy_bullets, player_rect, player2_rect, score, level
-    player_rect = player_img.get_rect(center=(SCREEN_WIDTH // 3, SCREEN_HEIGHT - 2 * PLAYER_SIZE))
-    player2_rect = player_img.get_rect(center=(2 * SCREEN_WIDTH // 3, SCREEN_HEIGHT - 2 * PLAYER_SIZE))
+    player_rect = player_img.get_rect(center=(2 * SCREEN_WIDTH // 3, SCREEN_HEIGHT - 2 * PLAYER_SIZE))
+    player2_rect = player2_img.get_rect(center=(SCREEN_WIDTH // 3, SCREEN_HEIGHT - 2 * PLAYER_SIZE))
     bullets = []
     bullets2 = []
     enemies = []
@@ -406,7 +408,7 @@ def main_multiplayer():
         # Drawing
         screen.blit(background, (0, 0))
         screen.blit(player_img, player_rect.topleft)
-        screen.blit(player_img, player2_rect.topleft)
+        screen.blit(player2_img, player2_rect.topleft)
         for bullet in bullets:
             screen.blit(bullet_img, bullet.topleft)
         for bullet in bullets2:
